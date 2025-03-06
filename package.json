@@ -3,22 +3,31 @@
   "name": "erm-api-server",
   "version": "0.0.0",
   "private": true,
-  "nodemonConfig": { 
-  "exec": "npm run dev",
-  "watch": ["server/*", "public/*"],
-  "ignore": ["**/__tests__/**", "*.test.js", "*.spec.js"]
+  "nodemonConfig": {
+    "exec": "npm run dev",
+    "watch": [
+      "server/*",
+      "public/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ]
   },
   "scripts": {
     "build": "npm-run-all clean transpile",
     "server": "node ./server/bin/www",
     "dev": "NODE_ENV=development npm-run-all build server",
-    "prod":"NODE_ENV=production npm-run-all build server",
+    "prod": "NODE_ENV=production npm-run-all build server",
     "transpile": "babel ./server --out-dir dist-server",
-    "clean":"rimraf dist-server",
+    "clean": "rimraf dist-server",
     "watch:dev": "nodemon"
   },
-  "babel":{
-    "presets": ["@babel/preset-env"]
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "dependencies": {
     "@babel/cli": "^7.26.4",
@@ -26,10 +35,14 @@
     "@babel/preset-env": "^7.26.9",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.4.7",
     "express": "~4.16.1",
     "morgan": "~1.9.1",
     "nodemon": "^3.1.9",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^6.0.1"
+    "pg": "^8.13.3",
+    "pg-hstore": "^2.3.4",
+    "rimraf": "^6.0.1",
+    "sequelize": "^6.37.6"
   }
 }

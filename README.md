@@ -1,1 +1,3 @@
 # erm-server-api
+
+# sequalize 
