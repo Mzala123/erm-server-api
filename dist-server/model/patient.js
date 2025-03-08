@@ -38,7 +38,4 @@ var Patient = _db["default"].define("Patient", {
     }
   }
 });
-
-// const patient  = new Patient({fistname: "Mtende", lastname:"Mwanza"})
-// console.log(patient.getFullname())
 var _default = exports["default"] = Patient;

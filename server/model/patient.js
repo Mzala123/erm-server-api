@@ -39,7 +39,5 @@ const Patient = sequelize.define(
     }
 )
 
-// const patient  = new Patient({fistname: "Mtende", lastname:"Mwanza"})
-// console.log(patient.getFullname())
 
 export default Patient
