@@ -42,7 +42,8 @@ var patientsRecords = exports.patientsRecords = function patientsRecords(req, re
   _patient["default"].findAll({
     attributes: {
       exclude: ["createdAt", "updatedAt"]
-    }
+    },
+    order: [['firstname', 'ASC']]
   }).then(function (patient) {
     (0, _response.sendJsonResponse)(res, 200, patient);
   })["catch"](function (err) {
@@ -51,15 +52,12 @@ var patientsRecords = exports.patientsRecords = function patientsRecords(req, re
 };
 var readOnePatientRecord = exports.readOnePatientRecord = function readOnePatientRecord(req, res) {
   var patientId = req.params.patientId;
-  _patient["default"].findAll({
-    where: {
-      "patientId": patientId
-    },
+  _patient["default"].findByPk(patientId, {
     attributes: {
       exclude: ["createdAt", "updatedAt"]
     }
   }).then(function (patient) {
-    (0, _response.sendJsonResponse)(res, 200, patient[0]);
+    (0, _response.sendJsonResponse)(res, 200, patient);
   })["catch"](function (err) {
     (0, _response.sendJsonResponse)(res, 500, {
       "message": "Error finding patient record " + err

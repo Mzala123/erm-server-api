@@ -9,7 +9,7 @@ var router = express.Router()
 router.post('/patients', createPatientRecord)
 router.get('/patients/:patientId', readOnePatientRecord)
 router.get('/patients', patientsRecords)
-router.put('/patients/:patientId', updatePatientRecord)
+router.patch('/patients/:patientId', updatePatientRecord)
 router.delete('/patients/:patientId', deletePatientRecord)
 
 

@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import express from  'express'
+import express from 'express'
 import path from 'path'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
@@ -21,7 +21,7 @@ var app = express()
 const initializeDatabase = async () => {
     try {
         await sequelize.authenticate();
-        await sequelize.sync({alter: true})
+        await sequelize.sync({ alter: true })
         console.log('Connection has been established successfully');
     } catch (error) {
         console.error('Error in establishing a connection!', error);

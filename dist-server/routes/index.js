@@ -14,6 +14,6 @@ var router = _express["default"].Router();
 router.post('/patients', _patient.createPatientRecord);
 router.get('/patients/:patientId', _patient.readOnePatientRecord);
 router.get('/patients', _patient.patientsRecords);
-router.put('/patients/:patientId', _patient.updatePatientRecord);
+router.patch('/patients/:patientId', _patient.updatePatientRecord);
 router["delete"]('/patients/:patientId', _patient.deletePatientRecord);
 var _default = exports["default"] = router;

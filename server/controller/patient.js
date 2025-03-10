@@ -28,7 +28,8 @@ export const patientsRecords = (req, res) => {
             {
                 attributes:{
                     exclude: ["createdAt", "updatedAt"]
-                }
+                },
+                order: [['firstname', 'ASC']]
             }
         )
         .then((patient)=>{
@@ -40,17 +41,10 @@ export const patientsRecords = (req, res) => {
 
 export const readOnePatientRecord = (req, res) => {
      const{patientId} =  req.params
-     Patient.findAll(
-        {
-            where:{
-                "patientId": patientId  
-            },
-           attributes: {
-            exclude: ["createdAt", "updatedAt"]
-           }
-        }
-     ).then((patient)=>{
-        sendJsonResponse(res, 200, patient[0])
+     Patient.findByPk(patientId, {attributes:{
+        exclude: ["createdAt", "updatedAt"]
+     }}).then((patient)=>{
+        sendJsonResponse(res, 200, patient)
      }).catch((err)=>{
         sendJsonResponse(res, 500,  {"message":"Error finding patient record "+err})
      })
