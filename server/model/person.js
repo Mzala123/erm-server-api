@@ -1,13 +1,15 @@
 import { DataTypes } from "sequelize";
 import sequelize from "./db.js";
 
-const Patient = sequelize.define(
-    "patients",
+//import User from "./users.js";
+
+const Person = sequelize.define(
+    "person",
     {
-        patientId:{
+        personId:{
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
-            primaryKey: true
+            primaryKey: true,
         },
         firstname: {
             type: DataTypes.STRING,
@@ -24,7 +26,7 @@ const Patient = sequelize.define(
         },
 
         birthdate: {
-            type: DataTypes.DATEONLY
+            type: DataTypes.DATEONLY,
         },
         current_addresss: DataTypes.TEXT,
         occupation: DataTypes.STRING ,
@@ -41,4 +43,4 @@ const Patient = sequelize.define(
 )
 
 
-export default Patient
+export default Person

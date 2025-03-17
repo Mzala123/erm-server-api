@@ -7,8 +7,10 @@ exports["default"] = void 0;
 var _sequelize = require("sequelize");
 var _db = _interopRequireDefault(require("./db.js"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var Patient = _db["default"].define("patients", {
-  patientId: {
+//import User from "./users.js";
+
+var Person = _db["default"].define("person", {
+  personId: {
     type: _sequelize.DataTypes.UUID,
     defaultValue: _sequelize.DataTypes.UUIDV4,
     primaryKey: true
@@ -41,4 +43,4 @@ var Patient = _db["default"].define("patients", {
     }
   }
 });
-var _default = exports["default"] = Patient;
+var _default = exports["default"] = Person;

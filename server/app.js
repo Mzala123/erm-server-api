@@ -9,6 +9,8 @@ import { fileURLToPath } from 'url'
 import sequelize from './model/db.js'
 
 import Patient from './model/patient.js';
+import Person  from './model/person.js';
+import User from './model/users.js';
 
 import indexRouter from './routes/index.js'
 import usersRouter from './routes/users.js'

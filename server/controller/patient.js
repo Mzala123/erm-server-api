@@ -2,6 +2,7 @@ import { where } from "sequelize";
 import Patient from "../model/patient.js";
 import { sendJsonResponse } from "../services/response.js";
 import { Sequelize, Op } from 'sequelize'
+import sequelize from "../model/db.js";
 
 export const createPatientRecord = (req, res) => {
     const { firstname, lastname, gender, birthdate, current_address, occupation } = req.body
@@ -28,11 +29,16 @@ export const patientsRecords = (req, res) => {
             {
                 attributes:{
                     exclude: ["createdAt", "updatedAt"]
+                    // include: [
+                    //     [sequelize.literal(`CONCAT(firstname," ",lastname)`), "fullName"]
+                    // ]
                 },
                 order: [['firstname', 'ASC']]
             }
         )
         .then((patient)=>{
+            const formattedPatients = patient.map(patient => patient.get({ plain: true }));
+            console.log(formattedPatients.map(p => p.fullName));
             sendJsonResponse(res, 200, patient)
         }).catch((err)=>{
             sendJsonResponse(res, 500, err)

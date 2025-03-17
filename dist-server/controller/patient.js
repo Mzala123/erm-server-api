@@ -7,6 +7,7 @@ exports.updatePatientRecord = exports.readOnePatientRecord = exports.patientsRec
 var _sequelize = require("sequelize");
 var _patient = _interopRequireDefault(require("../model/patient.js"));
 var _response = require("../services/response.js");
+var _db = _interopRequireDefault(require("../model/db.js"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var createPatientRecord = exports.createPatientRecord = function createPatientRecord(req, res) {
   var _req$body = req.body,
@@ -42,9 +43,20 @@ var patientsRecords = exports.patientsRecords = function patientsRecords(req, re
   _patient["default"].findAll({
     attributes: {
       exclude: ["createdAt", "updatedAt"]
+      // include: [
+      //     [sequelize.literal(`CONCAT(firstname," ",lastname)`), "fullName"]
+      // ]
     },
     order: [['firstname', 'ASC']]
   }).then(function (patient) {
+    var formattedPatients = patient.map(function (patient) {
+      return patient.get({
+        plain: true
+      });
+    });
+    console.log(formattedPatients.map(function (p) {
+      return p.fullName;
+    }));
     (0, _response.sendJsonResponse)(res, 200, patient);
   })["catch"](function (err) {
     (0, _response.sendJsonResponse)(res, 500, err);
