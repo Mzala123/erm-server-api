@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "./db.js";
+import { get } from "express/lib/response.js";
 
 const Patient = sequelize.define(
     "Patient",
@@ -28,15 +29,24 @@ const Patient = sequelize.define(
         },
         current_addresss: DataTypes.TEXT,
         occupation: DataTypes.STRING ,
+        fullName: {
+            type: DataTypes.VIRTUAL,
+            get(){
+             return `${this.firstname} ${this.lastname}`
+            },
+            set(value){
+                throw new Error(`Do not try to set the ${fullName} value!`)
+            }
+        }
     },
-    {
-      getterMethods: {
+    // {
+    //   getterMethods: {
 
-        getFullname(){
-            return [this.firstname, this.lastname].join(' ')
-        },
-      }
-    }
+    //     getFullname(){
+    //         return [this.firstname, this.lastname].join(' ')
+    //     },
+    //   }
+    // }
 )
 
 
