@@ -31,7 +31,7 @@ var Patient = _db["default"].define("patients", {
   },
   current_addresss: _sequelize.DataTypes.TEXT,
   occupation: _sequelize.DataTypes.STRING,
-  fullName: {
+  fullname: {
     type: _sequelize.DataTypes.VIRTUAL,
     get: function get() {
       return "".concat(this.firstname, " ").concat(this.lastname);

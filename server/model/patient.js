@@ -28,7 +28,7 @@ const Patient = sequelize.define(
         },
         current_addresss: DataTypes.TEXT,
         occupation: DataTypes.STRING ,
-        fullName: {
+        fullname: {
             type: DataTypes.VIRTUAL,
             get(){
              return `${this.firstname} ${this.lastname}`

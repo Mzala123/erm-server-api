@@ -1,12 +1,11 @@
 import { where } from "sequelize";
 import Patient from "../model/patient.js";
 import { sendJsonResponse } from "../services/response.js";
-import { Sequelize, Op } from 'sequelize'
+import { Sequelize, Op, QueryTypes } from 'sequelize'
 import sequelize from "../model/db.js";
 
 export const createPatientRecord = (req, res) => {
     const { firstname, lastname, gender, birthdate, current_address, occupation } = req.body
-
     if (!firstname || !lastname) {
         sendJsonResponse(res, 400, { "message": "Please fill in all requireds fields" })
     }
@@ -24,25 +23,31 @@ export const createPatientRecord = (req, res) => {
     })
 }
 
-export const patientsRecords = (req, res) => {
-        Patient.findAll(
+export const patientsRecords = async (req, res) => {
+        const patients = await sequelize.query('SELECT * FROM patients WHERE lastname ILIKE :lastname',
             {
-                attributes:{
-                    exclude: ["createdAt", "updatedAt"]
-                    // include: [
-                    //     [sequelize.literal(`CONCAT(firstname," ",lastname)`), "fullName"]
-                    // ]
-                },
-                order: [['firstname', 'ASC']]
+                replacements: {lastname: "%nza"},
+                mapToModel: true,
+                model: Patient,
+                type: QueryTypes.SELECT
             }
         )
-        .then((patient)=>{
-            const formattedPatients = patient.map(patient => patient.get({ plain: true }));
-            console.log(formattedPatients.map(p => p.fullName));
-            sendJsonResponse(res, 200, patient)
-        }).catch((err)=>{
-            sendJsonResponse(res, 500, err)
-        })
+
+        sendJsonResponse(res, 200, patients)
+        // Patient.findAll(
+        //     {
+        //         attributes:{
+        //             exclude: ["createdAt", "updatedAt"]
+        //         },
+        //         order: [['firstname', 'ASC']]
+        //     }
+        // )
+        // .then((patient)=>{
+             
+        //     sendJsonResponse(res, 200, patient)
+        // }).catch((err)=>{
+        //     sendJsonResponse(res, 500, err)
+        // })
 }
 
 export const readOnePatientRecord = (req, res) => {
