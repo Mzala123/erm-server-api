@@ -49,15 +49,6 @@ User.belongsTo(_person["default"], {
   foreignKey: "personId",
   onDelete: "CASCADE"
 });
-
-// export const getUserByEmail = (email)=>{
-//     User.findOne({where:{"email":email}}).then((user)=>{
-//         return user;
-//     }).catch((err)=>{
-//         return sendJsonResponse(res, 500, err)
-//     })
-// }
-
 var setPassword = exports.setPassword = function setPassword(password) {
   var salt = _crypto["default"].randomBytes(16).toString('hex');
   var hash = _crypto["default"].pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('base64');
@@ -71,8 +62,6 @@ var validPassword = exports.validPassword = function validPassword(user, passwor
   return user.hash === hash;
 };
 var generateJWT = exports.generateJWT = function generateJWT(user) {
-  //  const expiry = new Date()
-  //  expiry.setDate(expiry.getDate() + 1)
   return _jsonwebtoken["default"].sign({
     userId: user.userid,
     email: user.email
